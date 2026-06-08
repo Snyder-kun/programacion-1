@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cafetín - Cliente</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      margin: 20px;
+      background: radial-gradient(circle at top right, rgba(196, 133, 86, 0.16), transparent 34%), linear-gradient(180deg, #f9f3eb 0%, #f5e6d5 100%);
+      color: #42322a;
+    }
+    .container {
+      max-width: 1000px;
+      margin: auto;
+      background: rgba(255, 255, 255, 0.96);
+      padding: 22px;
+      border-radius: 14px;
+      border: 1px solid rgba(118, 81, 53, 0.16);
+      box-shadow: 0 14px 40px rgba(66, 50, 42, 0.08);
+    }
+    h1, h2 {
+      color: #5a3d2a;
+      margin-top: 0;
+    }
+    h1 {
+      letter-spacing: 0.03em;
+    }
+    h2 {
+      border-bottom: 1px solid #e1c7b2;
+      padding-bottom: 6px;
+    }
+    a {
+      color: #7b5233;
+      text-decoration: none;
+      border-bottom: 1px dashed rgba(123, 82, 51, 0.7);
+    }
+    a:hover {
+      color: #5a3d2a;
+    }
+    button {
+      margin: 5px;
+      padding: 8px 14px;
+      border: 1px solid #c7a58a;
+      border-radius: 8px;
+      background: linear-gradient(180deg, #fff7ee 0%, #f2e2cd 100%);
+      color: #4a372d;
+      cursor: pointer;
+    }
+    button:hover {
+      background: linear-gradient(180deg, #fff0de 0%, #e9d3be 100%);
+    }
+    input, select {
+      padding: 8px 10px;
+      margin: 5px 5px 10px 0;
+      border: 1px solid #c7a58a;
+      border-radius: 8px;
+      background: #fffaf3;
+      color: #4a372d;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+      background: rgba(255, 255, 255, 0.94);
+    }
+    th, td {
+      border: 1px solid #d4bba7;
+      padding: 10px;
+      text-align: left;
+    }
+    th {
+      background: #f3e3d6;
+    }
+    tr:nth-child(even) td {
+      background: rgba(245, 236, 225, 0.9);
+    }
+    #seccionPagoMovil {
+      display: none;
+      border: 1px solid #d4bba7;
+      padding: 12px;
+      margin-top: 10px;
+      border-radius: 10px;
+      background: rgba(255, 250, 245, 0.95);
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #e6d2c0;
+      margin: 24px 0;
+    }
+    .toast {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #3f2e24;
+      color: white;
+      padding: 10px 14px;
+      display: none;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h1>Cafetín - Cliente</h1>
+  <h2>Categorías</h2>
+  <div>
+    <button type="button" data-cat="pasteles">Pasteles</button>
+    <button type="button" data-cat="bebidas">Bebidas</button>
+    <button type="button" data-cat="snacks">Snacks</button>
+    <button type="button" data-cat="comidas">Comidas</button>
+  </div>
+  <div id="contenedorProductos"><p>Selecciona una categoría.</p></div>
+  <hr>
+  <h2>Carrito</h2>
+  <table><thead><tr><th>Producto</th><th>Precio</th><th>Cant.</th><th>Acción</th></tr></thead><tbody id="tbodyCarrito"></tbody></table>
+  <p><strong>Total: $<span id="spanTotal">0.00</span></strong></p>
+  <h2>Datos del Pedido</h2>
+  <div><label>Nombre: <input type="text" id="inNombre"></label></div>
+  <div><label>Forma de pago:
+    <select id="selPago">
+      <option value="">Seleccionar</option>
+      <option value="efectivo_usd">Efectivo USD</option>
+      <option value="efectivo_bs">Efectivo Bs.</option>
+      <option value="pago_movil">Pago Móvil</option>
+      <option value="otro">Otro</option>
+    </select>
+  </label></div>
+  <div id="seccionPagoMovil">
+    <h3>Datos Pago Móvil</h3>
+    <div><label>Cédula: <input type="text" id="inCedula"></label></div>
+    <div><label>Banco: <input type="text" id="inBanco"></label></div>
+    <div><label>Referencia: <input type="text" id="inReferencia"></label></div>
+  </div>
+  <button id="btnEnviar">Enviar Pedido</button>
+</div>
+<div id="toast" class="toast"></div>
+<script type="module">
+  import Cl_mCafetin from "./dist/models/Cl_mCafetin.js";
+  import Cl_vCliente from "./dist/views/Cl_vCliente.js";
+  import Cl_cCliente from "./dist/controllers/Cl_cCliente.js";
+  const modelo = new Cl_mCafetin();
+  const vista = new Cl_vCliente();
+  new Cl_cCliente({ modelo, vista });
+</script>
+</body>
+</html>
